@@ -15,6 +15,7 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
 RUN apk update \
     && apk upgrade \
     && apk --update add logrotate \
+    && apk add --no-cache certbot \
     && apk add --no-cache openssl \
     && apk add --no-cache bash
 
