@@ -192,11 +192,16 @@ RUN if [ ${INSTALL_OCI8} = true ] && [ $(php -r "echo PHP_MAJOR_VERSION;") = "7"
 ;fi
 
 # Install PostgreSQL drivers:
-ARG INSTALL_PGSQL=false
-RUN if [ ${INSTALL_PGSQL} = true ]; then \
-    apk --update add postgresql-dev \
-        && docker-php-ext-install pdo_pgsql \
-;fi
+#ARG INSTALL_PGSQL=false
+#RUN if [ ${INSTALL_PGSQL} = true ]; then \
+#    apk --update add postgresql-dev \
+#        && docker-php-ext-install pdo_pgsql \
+#;fi
+RUN set -ex \
+  && apk --no-cache add \
+    postgresql-dev
+
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Install ZipArchive:
 ARG INSTALL_ZIP_ARCHIVE=false
